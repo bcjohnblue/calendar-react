@@ -1,5 +1,5 @@
-import type { Month, Week } from './MyDateTypes';
-import { WEEK_MOD } from './MyDateConstants';
+import type { Month, Week } from './types';
+import { WEEK_MOD } from './constants';
 
 // ! Bugs: 2021-07-01, 2021-12-01 有問題
 /**

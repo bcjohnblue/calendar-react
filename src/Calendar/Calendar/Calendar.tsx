@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import MyDate from '../../utils/MyDate/MyDate';
-import { generateCalendarData } from './CalendarHelper';
+import MyDate from '../../MyDate';
+import { generateCalendarData } from '../helper';
 import styled from 'styled-components';
 
-import CalendarHeader from './CalendarHeader';
-import CalendarBody from './CalendarBody';
-import { CalendarData } from './CalendarTypes';
+import CalendarHeader from '../CalendarHeader/CalendarHeader';
+import CalendarBody from '../CalendarBody/CalendarBody';
+import { CalendarData } from '../types';
 
 const Styled = {
   Calendar: styled.div`

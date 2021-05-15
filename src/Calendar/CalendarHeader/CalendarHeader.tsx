@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import MyDate from '../../utils/MyDate/MyDate';
-import { mapMonthToText } from './CalendarHelper';
+import MyDate from '../../MyDate';
+import { mapMonthToText } from '../helper';
 
 const Styled = {
   Container: styled.div`

@@ -1,10 +1,8 @@
-import MyDate from '../../utils/MyDate/MyDate';
-import { Month, Week } from '../../utils/MyDate/MyDateTypes';
-import { WEEK_MOD } from '../../utils/MyDate/MyDateConstants';
-import { getTotalNumberOfDatesInMonth } from '../../utils/MyDate/MyDateHelper';
+import MyDate, { WEEK_MOD, getTotalNumberOfDatesInMonth } from '../MyDate';
+import type { Month, Week } from '../MyDate';
 
-import { LAST_DAY_OF_WEEK, DISPLAY_ROW_IN_CALENDAR } from './CalendarContants';
-import { CalendarData } from './CalendarTypes';
+import { LAST_DAY_OF_WEEK, DISPLAY_ROW_IN_CALENDAR } from './contants';
+import { CalendarData } from './types';
 
 /**
  * @description: 計算此月在月曆上的最初一天

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { CalendarData } from './CalendarTypes';
-import MyDate from '../../utils/MyDate/MyDate';
+import { CalendarData } from '../types';
+import MyDate from '../../MyDate';
 import clsx from 'clsx';
 
 const CalendarRow = styled.div`

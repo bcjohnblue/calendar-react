@@ -1,9 +1,9 @@
-import type { Month, Week } from './MyDateTypes';
+import type { Month, Week } from '../types';
 import {
   getDayByApplyGaussianAlgorithm,
   getTotalNumberOfDatesInMonth
-} from './MyDateHelper';
-import { INITIAL_MY_DATE } from './MyDateConstants';
+} from '../helper';
+import { INITIAL_MY_DATE } from '../constants';
 
 class MyDate {
   year: number = new Date().getFullYear();

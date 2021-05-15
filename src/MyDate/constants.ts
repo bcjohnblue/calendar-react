@@ -1,4 +1,4 @@
-import { Month } from './MyDateTypes';
+import { Month } from './types';
 
 // 日期初始值
 export const INITIAL_MY_DATE: {
