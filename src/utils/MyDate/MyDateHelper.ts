@@ -1,15 +1,16 @@
 import type { Month, Week } from './MyDateTypes';
 import { WEEK_MOD } from './MyDateConstants';
 
+// ! Bugs: 2021-07-01, 2021-12-01 有問題
 /**
  * @description: 利用 Gaussian algorithm 計算是傳入日期是星期幾
  * @reference https://calendars.wikia.org/wiki/Calculating_the_day_of_the_week
  * @param {year} 年
  * @param {month} 月
  * @param {date} 日
- * @return {WEEK} 星期ㄧ、二...
+ * @return {WEEK} 星期日、ㄧ、二...
  */
-export const _getDayByApplyGaussianAlgorithm = (
+export const getDayByApplyGaussianAlgorithm = (
   year: number,
   month: number,
   date: number

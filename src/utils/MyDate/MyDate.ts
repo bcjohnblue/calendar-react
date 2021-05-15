@@ -1,16 +1,19 @@
 import type { Month, Week } from './MyDateTypes';
 import {
-  _getDayByApplyGaussianAlgorithm,
+  getDayByApplyGaussianAlgorithm,
   getTotalNumberOfDatesInMonth
 } from './MyDateHelper';
 import { INITIAL_MY_DATE } from './MyDateConstants';
 
 class MyDate {
-  year: number = INITIAL_MY_DATE.YEAR;
-  month: Month = INITIAL_MY_DATE.MONTH;
-  date: number = INITIAL_MY_DATE.DATE;
+  year: number = new Date().getFullYear();
+  month: Month = (new Date().getMonth() + 1) as Month;
+  date: number = new Date().getDate();
+  // year: number = INITIAL_MY_DATE.YEAR;
+  // month: Month = INITIAL_MY_DATE.MONTH;
+  // date: number = INITIAL_MY_DATE.DATE;
 
-  constructor(date: string | null) {
+  constructor(date?: string) {
     const dateList = date?.split('-');
     if (!dateList) return;
 
@@ -69,7 +72,7 @@ class MyDate {
   }
 
   getDay(): Week {
-    return _getDayByApplyGaussianAlgorithm(this.year, this.month, this.date);
+    return getDayByApplyGaussianAlgorithm(this.year, this.month, this.date);
   }
 
   getDate(): number {
@@ -81,7 +84,7 @@ class MyDate {
     return this;
   }
 
-  diffDate(dateDiff: number) {
+  diffDate(dateDiff: number): MyDate {
     const firstDayInMonth = 1;
 
     let newDate = new MyDate(`${this.year}-${this.month}-${this.date}`);
@@ -119,6 +122,17 @@ class MyDate {
     }
 
     return newDate;
+  }
+
+  isEqual(anotherDate: MyDate | null): boolean {
+    if (anotherDate === null) return false;
+    const year = anotherDate.getFullYear();
+    const month = anotherDate.getMonth();
+    const date = anotherDate.getDate();
+
+    if (this.year === year && this.month === month && this.date === date)
+      return true;
+    return false;
   }
 }
 
