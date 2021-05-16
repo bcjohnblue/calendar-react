@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import MyDate from '../../MyDate';
 import { generateCalendarData } from '../helper';
 import styled from 'styled-components';
 
 import CalendarHeader from '../CalendarHeader/CalendarHeader';
 import CalendarBody from '../CalendarBody/CalendarBody';
-import { CalendarData } from '../types';
+import { CalendarView } from '../types';
 
 const Styled = {
   Calendar: styled.div`
@@ -16,28 +16,29 @@ const Styled = {
 };
 
 const Calendar = () => {
-  const [calendarData, setCalendarData] = useState<CalendarData>(() => {
+  const [calendarView, setCalendarView] = useState<CalendarView>(() => {
     const now = new MyDate();
-    return generateCalendarData(now.getFullYear(), now.getMonth());
+    return {
+      data: generateCalendarData('date')(now.getFullYear(), now.getMonth()),
+      value: now,
+      type: 'date'
+    };
   });
-  const [viewDate, setViewDate] = useState(new MyDate());
-  useEffect(() => {
-    const year = viewDate.getFullYear();
-    const month = viewDate.getMonth();
-    setCalendarData(generateCalendarData(year, month));
-  }, [viewDate]);
 
-  const [selectedDate, setSelectedDate] = useState<MyDate | null>(null);
+  // console.log('2018-03', new MyDate('2018-03-01').getDay());
+  
+
+  const [selectedDate, setSelectedDate] = useState<MyDate>(new MyDate());
 
   return (
     <Styled.Calendar>
       <CalendarHeader
-        viewDate={viewDate}
-        setViewDate={setViewDate}
+        calendarView={calendarView}
+        setCalendarView={setCalendarView}
       ></CalendarHeader>
       <CalendarBody
-        calendarData={calendarData}
-        viewDate={viewDate}
+        calendarView={calendarView}
+        setCalendarView={setCalendarView}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
       ></CalendarBody>

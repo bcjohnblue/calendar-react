@@ -31,6 +31,24 @@ class MyDate {
     return this;
   }
 
+  diffYear(yearDiff: number): MyDate {
+    const newDate = new MyDate(`${this.year}-${this.month}-${this.date}`);
+    let year = newDate.getFullYear();
+
+    if (yearDiff > 0) {
+      for (let index = 0; index < yearDiff; index++) {
+        year++;
+      }
+    } else {
+      for (let index = 0; yearDiff < index; index--) {
+        year--;
+      }
+    }
+
+    newDate.setFullYear(year);
+    return newDate;
+  }
+
   getMonth(): Month {
     return this.month;
   }

@@ -21,11 +21,12 @@ export const getDayByApplyGaussianAlgorithm = (
     m: number,
     d: number
   ): Week => {
-    const gaussianValue = Math.floor(
+    let gaussianValue = Math.floor(
       d + (2.6 * m - 0.2) + y + y / 4 + c / 4 - 2 * c
     );
-    if (gaussianValue >= 0) return (gaussianValue % WEEK_MOD) as Week;
-    return (gaussianValue + WEEK_MOD) as Week;
+
+    while (gaussianValue < 0) gaussianValue += WEEK_MOD;
+    return (gaussianValue % WEEK_MOD) as Week;
   };
 
   const getNormalizeYear = (y: number, m: number) => {

@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MyDate from '../../MyDate';
 import { mapMonthToText } from '../helper';
+import { CalendarView, CalendarViewType } from '../types';
+import { generateCalendarData, getMinMaxYear } from '../helper';
 
 const Styled = {
   Container: styled.div`
@@ -27,27 +30,113 @@ const Styled = {
 };
 
 type Props = {
-  viewDate: MyDate;
-  setViewDate: React.Dispatch<React.SetStateAction<MyDate>>;
+  calendarView: CalendarView;
+  setCalendarView: React.Dispatch<React.SetStateAction<CalendarView>>;
 };
 
 const CalendarHeader: React.FC<Props> = (props) => {
-  const onLeftClick = () => {
-    props.setViewDate((prevViewDate) => prevViewDate.diffMonth(-1));
+  const onCursorClick = (dir: 'left' | 'right') => {
+    const sign = dir === 'left' ? -1 : 1;
+
+    props.setCalendarView((prevCalendarView) => {
+      const getNextValue = (type: CalendarViewType) => (value: MyDate) => {
+        const maxYear = getMinMaxYear('max')(value.getFullYear()) + 1;
+        const incrementYear = maxYear - value.getFullYear();
+
+        const mapTypeToNextValue = {
+          year: value.diffYear(incrementYear * sign),
+          month: value.diffYear(1 * sign),
+          date: value.diffMonth(1 * sign)
+        };
+
+        return mapTypeToNextValue[type];
+      };
+
+      const type = prevCalendarView.type;
+      const value = prevCalendarView.value;
+      const nextValue = getNextValue(type)(value);
+      const nextYear = nextValue.getFullYear();
+      const nextMonth = nextValue.getMonth();
+
+      return {
+        ...prevCalendarView,
+        data: generateCalendarData(type)(nextYear, nextMonth),
+        value: nextValue
+      };
+    });
   };
 
-  const onRightClick = () => {
-    props.setViewDate((prevViewDate) => prevViewDate.diffMonth(1));
+  const onTitleClick = () => {
+    let nextViewData = props.calendarView.data;
+    let nextViewValue = props.calendarView.value;
+    let nextViewType = props.calendarView.type;
+
+    switch (props.calendarView.type) {
+      case 'year':
+        break;
+      case 'month':
+        nextViewData = generateCalendarData('year')(
+          nextViewValue.getFullYear()
+        );
+        // nextViewValue = nextViewValue.setDate(1);
+        nextViewType = 'year';
+        break;
+      case 'date':
+        nextViewData = generateCalendarData('month')(
+          nextViewValue.getFullYear()
+        );
+        nextViewValue = nextViewValue.setDate(1);
+        nextViewType = 'month';
+        break;
+      default:
+        break;
+    }
+
+    if (nextViewType !== props.calendarView.type)
+      props.setCalendarView({
+        data: nextViewData,
+        value: nextViewValue,
+        type: nextViewType
+      });
   };
+
+  const [title, setTitle] = useState<JSX.Element | null>(null);
+  useEffect(() => {
+    let element = null;
+
+    switch (props.calendarView.type) {
+      case 'year':
+        element = (
+          <>
+            {getMinMaxYear('min')(props.calendarView.value.getFullYear())}-
+            {getMinMaxYear('max')(props.calendarView.value.getFullYear())}
+          </>
+        );
+        break;
+      case 'month':
+        element = <>{props.calendarView.value.getFullYear()}</>;
+        break;
+      case 'date':
+        element = (
+          <>
+            {mapMonthToText[props.calendarView.value.getMonth()]}&nbsp;&nbsp;
+            {props.calendarView.value.getFullYear()}
+          </>
+        );
+        break;
+      default:
+        element = null;
+        break;
+    }
+
+    setTitle(element);
+  }, [props.calendarView]);
 
   return (
     <Styled.Container>
-      <Styled.Cusor onClick={onLeftClick}>{'<'}</Styled.Cusor>
-      <Styled.Title>
-        {mapMonthToText[props.viewDate.getMonth()]}&nbsp;&nbsp;
-        {props.viewDate.getFullYear()}
-      </Styled.Title>
-      <Styled.Cusor onClick={onRightClick}>{'>'}</Styled.Cusor>
+      <Styled.Cusor onClick={() => onCursorClick('left')}>{'<'}</Styled.Cusor>
+      <Styled.Title onClick={onTitleClick}>{title}</Styled.Title>
+      <Styled.Cusor onClick={() => onCursorClick('right')}>{'>'}</Styled.Cusor>
     </Styled.Container>
   );
 };
