@@ -4,6 +4,9 @@ import {
   getTotalNumberOfDatesInMonth
 } from '../helper';
 
+/**
+ * @description: 仿照 new Date() 製作出 MyDate
+ */
 class MyDate {
   private year: number = new Date().getFullYear();
   private month: Month = (new Date().getMonth() + 1) as Month;
