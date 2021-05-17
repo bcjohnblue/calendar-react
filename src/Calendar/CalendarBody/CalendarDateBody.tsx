@@ -67,7 +67,7 @@ const CalendarBody: React.FC<Props> = (props) => {
         <Styled.DateRow key={rowIndex}>
           {rowData.map((cellData) => (
             <Styled.CalendarCell
-              key={`${cellData.month}${cellData.date}`}
+              key={`${cellData.getMonth()}${cellData.getDate()}`}
               className={clsx({
                 today: cellData.isEqual(new MyDate()),
                 outside:
@@ -76,7 +76,7 @@ const CalendarBody: React.FC<Props> = (props) => {
               })}
               onClick={() => onCellClick(cellData)}
             >
-              {cellData.date}
+              {cellData.getDate()}
             </Styled.CalendarCell>
           ))}
         </Styled.DateRow>

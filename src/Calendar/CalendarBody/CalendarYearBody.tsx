@@ -72,7 +72,7 @@ const CalendarYearBody: React.FC<Props> = (props) => {
         <Styled.DateRow key={rowIndex}>
           {rowData.map((cellData) => (
             <Styled.CalendarCell
-              key={`${cellData.year}`}
+              key={`${cellData.getFullYear()}`}
               className={clsx({
                 today: cellData.isEqual(new MyDate()),
                 outside: getIsOutside(cellData),
@@ -80,7 +80,7 @@ const CalendarYearBody: React.FC<Props> = (props) => {
               })}
               onClick={() => onCellClick(cellData)}
             >
-              {cellData.year}
+              {cellData.getFullYear()}
             </Styled.CalendarCell>
           ))}
         </Styled.DateRow>

@@ -63,14 +63,14 @@ const CalendarMonthBody: React.FC<Props> = (props) => {
         <Styled.DateRow key={rowIndex}>
           {rowData.map((cellData) => (
             <Styled.CalendarCell
-              key={`${cellData.year}${cellData.month}`}
+              key={`${cellData.getFullYear()}${cellData.getMonth()}`}
               className={clsx({
                 today: cellData.isEqual(new MyDate()),
                 selected: isEqualMonth(cellData, props.selectedDate)
               })}
               onClick={() => onCellClick(cellData)}
             >
-              {mapMonthToText[cellData.month]}
+              {mapMonthToText[cellData.getMonth()]}
             </Styled.CalendarCell>
           ))}
         </Styled.DateRow>

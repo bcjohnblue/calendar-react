@@ -5,9 +5,9 @@ import {
 } from '../helper';
 
 class MyDate {
-  year: number = new Date().getFullYear();
-  month: Month = (new Date().getMonth() + 1) as Month;
-  date: number = new Date().getDate();
+  private year: number = new Date().getFullYear();
+  private month: Month = (new Date().getMonth() + 1) as Month;
+  private date: number = new Date().getDate();
 
   constructor(date?: string | null) {
     if (!date) return;
