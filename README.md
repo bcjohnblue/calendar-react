@@ -2,7 +2,7 @@
 
 A simple calendar just for practice.
 
-![preview](./public/images/preview.png)
+![preview](./public/images/preview.png =100x100)
 
 ## Available Scripts
 
