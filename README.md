@@ -1,6 +1,9 @@
 # React-Calendar
 
 A simple calendar just for practice.
+
+![app preview](./public/images/preview.png)
+
 ## Available Scripts
 
 In the project directory, you can run:
