@@ -2,7 +2,7 @@
 
 A simple calendar just for practice.
 
-![app preview](./public/images/preview.png)
+![preview](./public/images/preview.png)
 
 ## Available Scripts
 
