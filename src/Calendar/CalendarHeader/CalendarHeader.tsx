@@ -21,7 +21,6 @@ const Styled = {
   `,
   Title: styled.span`
     cursor: pointer;
-    background-color: #eee;
     line-height: 1.3rem;
     display: flex;
     align-items: center;
