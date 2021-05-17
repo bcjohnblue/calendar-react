@@ -116,10 +116,10 @@ const _generateCalendarDateData = (
 };
 
 /**
- * @description: 產生此月份的月曆資料
+ * @description: 產生月曆資料
  * @param {number} year
  * @param {Month} month
- * @return {CalendarData} 此月份的月曆資料
+ * @return {CalendarData} 月曆資料
  */
 export const generateCalendarData =
   (type: CalendarViewType) =>
