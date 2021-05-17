@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import MyDate from '../../MyDate';
 import { mapMonthToText } from '../helper';
@@ -76,14 +76,12 @@ const CalendarHeader: React.FC<Props> = (props) => {
         nextViewData = generateCalendarData('year')(
           nextViewValue.getFullYear()
         );
-        // nextViewValue = nextViewValue.setDate(1);
         nextViewType = 'year';
         break;
       case 'date':
         nextViewData = generateCalendarData('month')(
           nextViewValue.getFullYear()
         );
-        // nextViewValue = nextViewValue.setDate(1);
         nextViewType = 'month';
         break;
       default:
@@ -98,8 +96,7 @@ const CalendarHeader: React.FC<Props> = (props) => {
       });
   };
 
-  const [title, setTitle] = useState<JSX.Element | null>(null);
-  useEffect(() => {
+  const title = useMemo(() => {
     let element = null;
 
     switch (props.calendarView.type) {
@@ -127,7 +124,7 @@ const CalendarHeader: React.FC<Props> = (props) => {
         break;
     }
 
-    setTitle(element);
+    return element;
   }, [props.calendarView]);
 
   return (
