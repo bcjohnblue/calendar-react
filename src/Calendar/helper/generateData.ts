@@ -5,18 +5,6 @@ import { DISPLAY_ROW_IN_CALENDAR } from '../contants';
 import { CalendarData, CalendarViewType } from '../types';
 
 /**
- * @description: 計算此年在月曆上的最初一年
- * @param {number} year
- * @return {MyDate} 此年在月曆上的最初一年
- */
-//  const _getFirstYearInCalendar = (year: number): MyDate => {
-//   const myDate = new MyDate(`${year}-01-01`);
-//   const day = myDate.getDay();
-
-//   return myDate.diffDate(-day);
-// };
-
-/**
  * @description: 計算此月在月曆上的最初一天
  * @param {number} year
  * @param {Month} month
@@ -28,21 +16,6 @@ const _getFirstDateInCalendar = (year: number, month: Month): MyDate => {
 
   return myDate.diffDate(-day);
 };
-
-/**
- * @description: 計算此月在月曆上的最後一天
- * @param {number} year
- * @param {Month} month
- * @return {MyDate} 此月在月曆上的最後一天
- */
-// const _getLastDateInCalendar = (year: number, month: Month): MyDate => {
-//   const lastDate = getTotalNumberOfDatesInMonth(year, month);
-//   const myDate = new MyDate(`${year}-${month}-${lastDate}`);
-//   const day = myDate.getDay();
-//   const dayDiff = (LAST_DAY_OF_WEEK - day) as Week;
-
-//   return myDate.diffDate(dayDiff);
-// };
 
 /**
  * @description: 產生12年份的月曆資料

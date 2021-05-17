@@ -10,6 +10,7 @@ export type CalendarBodyProps = {
   setCalendarView: React.Dispatch<React.SetStateAction<CalendarView>>;
   selectedDate: MyDate | null;
   setSelectedDate: React.Dispatch<React.SetStateAction<MyDate>>;
+  onSelect: (date: MyDate) => void;
 };
 const CalendarBody: React.FC<CalendarBodyProps> = (props) => {
   const mapViewTypeToDOM = {

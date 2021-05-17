@@ -3,17 +3,15 @@ import {
   getDayByApplyGaussianAlgorithm,
   getTotalNumberOfDatesInMonth
 } from '../helper';
-import { INITIAL_MY_DATE } from '../constants';
 
 class MyDate {
   year: number = new Date().getFullYear();
   month: Month = (new Date().getMonth() + 1) as Month;
   date: number = new Date().getDate();
-  // year: number = INITIAL_MY_DATE.YEAR;
-  // month: Month = INITIAL_MY_DATE.MONTH;
-  // date: number = INITIAL_MY_DATE.DATE;
 
-  constructor(date?: string) {
+  constructor(date?: string | null) {
+    if (!date) return;
+
     const dateList = date?.split('-');
     if (!dateList) return;
 
@@ -151,6 +149,10 @@ class MyDate {
     if (this.year === year && this.month === month && this.date === date)
       return true;
     return false;
+  }
+
+  toString() {
+    return `${this.year}-${this.month}-${this.date}`;
   }
 }
 

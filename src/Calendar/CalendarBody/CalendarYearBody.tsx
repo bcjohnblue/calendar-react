@@ -47,7 +47,6 @@ const Styled = {
 
 type Props = CalendarBodyProps & {};
 const CalendarYearBody: React.FC<Props> = (props) => {
-  const now = new MyDate();
   const onCellClick = (cellData: MyDate) => {
     props.setCalendarView((prevCalendarView) => {
       const year = cellData.getFullYear();
@@ -75,7 +74,7 @@ const CalendarYearBody: React.FC<Props> = (props) => {
             <Styled.CalendarCell
               key={`${cellData.year}`}
               className={clsx({
-                today: cellData.isEqual(now),
+                today: cellData.isEqual(new MyDate()),
                 outside: getIsOutside(cellData),
                 selected: isEqualYear(cellData, props.selectedDate)
               })}

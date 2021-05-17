@@ -1,11 +1,11 @@
-import React from 'react';
 import './App.css';
-import Calendar from './Calendar';
+import DatePicker from './DatePicker';
 
 function App() {
   return (
     <div className="App">
-      <Calendar></Calendar>
+      <h2>Example of DatePicker</h2>
+      <DatePicker></DatePicker>
     </div>
   );
 }

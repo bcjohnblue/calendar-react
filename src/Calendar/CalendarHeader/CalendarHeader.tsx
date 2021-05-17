@@ -33,7 +33,6 @@ type Props = {
   calendarView: CalendarView;
   setCalendarView: React.Dispatch<React.SetStateAction<CalendarView>>;
 };
-
 const CalendarHeader: React.FC<Props> = (props) => {
   const onCursorClick = (dir: 'left' | 'right') => {
     const sign = dir === 'left' ? -1 : 1;
@@ -85,7 +84,7 @@ const CalendarHeader: React.FC<Props> = (props) => {
         nextViewData = generateCalendarData('month')(
           nextViewValue.getFullYear()
         );
-        nextViewValue = nextViewValue.setDate(1);
+        // nextViewValue = nextViewValue.setDate(1);
         nextViewType = 'month';
         break;
       default:

@@ -51,9 +51,9 @@ const weeksData = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 type Props = CalendarBodyProps & {};
 const CalendarBody: React.FC<Props> = (props) => {
-  const now = new MyDate();
   const onCellClick = (cellData: MyDate) => {
     props.setSelectedDate(cellData);
+    props.onSelect(cellData);
   };
 
   return (
@@ -69,7 +69,7 @@ const CalendarBody: React.FC<Props> = (props) => {
             <Styled.CalendarCell
               key={`${cellData.month}${cellData.date}`}
               className={clsx({
-                today: cellData.isEqual(now),
+                today: cellData.isEqual(new MyDate()),
                 outside:
                   cellData.getMonth() !== props.calendarView.value.getMonth(),
                 selected: isEqualDate(cellData, props.selectedDate)

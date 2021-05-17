@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import MyDate from '../../MyDate';
 import { generateCalendarData } from '../helper';
 import styled from 'styled-components';
@@ -9,26 +9,39 @@ import { CalendarView } from '../types';
 
 const Styled = {
   Calendar: styled.div`
-    margin: 10px;
     padding: 20px;
     border: 1px solid black;
+    width: 500px;
+    z-index: 100;
   `
 };
 
-const Calendar = () => {
-  const [calendarView, setCalendarView] = useState<CalendarView>(() => {
-    const now = new MyDate();
-    return {
-      data: generateCalendarData('date')(now.getFullYear(), now.getMonth()),
-      value: now,
-      type: 'date'
-    };
-  });
+const initCalendarView = (initDate: MyDate): CalendarView => {
+  return {
+    data: generateCalendarData('date')(
+      initDate.getFullYear(),
+      initDate.getMonth()
+    ),
+    value: initDate,
+    type: 'date'
+  };
+};
 
-  // console.log('2018-03', new MyDate('2018-03-01').getDay());
-  
+type CalendarProps = {
+  date: string | null;
+  onSelect: (date: MyDate) => void;
+};
+const Calendar: React.FC<CalendarProps> = (props) => {
+  const date = useMemo(() => new MyDate(props.date), [props.date]);
+  const [selectedDate, setSelectedDate] = useState<MyDate>(date);
+  const [calendarView, setCalendarView] = useState<CalendarView>(() =>
+    initCalendarView(date)
+  );
 
-  const [selectedDate, setSelectedDate] = useState<MyDate>(new MyDate());
+  useEffect(() => {
+    setSelectedDate(date);
+    setCalendarView(initCalendarView(date));
+  }, [date]);
 
   return (
     <Styled.Calendar>
@@ -41,6 +54,7 @@ const Calendar = () => {
         setCalendarView={setCalendarView}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
+        onSelect={props.onSelect}
       ></CalendarBody>
     </Styled.Calendar>
   );
