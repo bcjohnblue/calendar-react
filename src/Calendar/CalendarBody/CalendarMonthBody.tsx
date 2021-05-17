@@ -13,7 +13,7 @@ const Styled = {
   Container: styled.div`
     display: grid;
     grid-template-rows: repeat(3, 1fr);
-    margin-top: 50px;
+    margin-top: 1rem;
   `,
   DateRow: styled(CalendarRow)`
     & > div {
@@ -21,8 +21,8 @@ const Styled = {
     }
   `,
   CalendarCell: styled.div`
-    width: 100px;
-    height: 100px;
+    width: 4rem;
+    height: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;

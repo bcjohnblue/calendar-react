@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ReactComponent as CalendarSVG } from '../assets/calendar.svg';
 import styled from 'styled-components';
 import { DatePickerType, DatePickerValue } from './types';
@@ -41,13 +41,23 @@ const Styled = {
   Date: styled(DatePickerInput)`
     width: 25px;
   `,
-  Backdrop: styled.div`
-    position: absolute;
+  BackdropContainer: styled.div`
+    position: fixed;
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 1300;
+  `,
+  Backdrop: styled.div`
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+  `,
+  CalendarContaier: styled.div`
+    position: fixed;
+    margin-right: 10px;
   `
 };
 
@@ -80,13 +90,19 @@ const DatePicker = () => {
     if (isValidDate(composedDate)) setDate(composedDate);
   }, [value]);
 
+  const ref = useRef<HTMLDivElement>(null);
+  const inputContainerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const onCalendarIconClick = () => {
-    setVisible(true);
+    const boundingClientRect =
+      inputContainerRef.current?.getBoundingClientRect();
+    if (ref.current && boundingClientRect) {
+      ref.current.style.top = `${boundingClientRect.top + 35}px`;
+      ref.current.style.left = `${boundingClientRect.left}px`;
+      setVisible(true);
+    }
   };
   const onBackDropClick = () => {
-    console.log('onBackDropClick');
-
     setVisible(false);
   };
 
@@ -102,7 +118,7 @@ const DatePicker = () => {
 
   return (
     <>
-      <Styled.Container isFocus={isFocus}>
+      <Styled.Container ref={inputContainerRef} isFocus={isFocus}>
         <Styled.SVGContainer onClick={onCalendarIconClick}>
           <CalendarSVG width={20} height={20} fill={COLOR} />
         </Styled.SVGContainer>
@@ -133,14 +149,12 @@ const DatePicker = () => {
           onBlur={onBlur}
         ></Styled.Date>
       </Styled.Container>
-      {visible ? (
-        <>
-          <div onClick={(e) => e.stopPropagation()}>
-            <Calendar date={date} onSelect={onSelect}></Calendar>
-          </div>
-          <Styled.Backdrop onClick={onBackDropClick}></Styled.Backdrop>
-        </>
-      ) : null}
+      <Styled.BackdropContainer style={{ display: visible ? 'block' : 'none' }}>
+        <Styled.CalendarContaier ref={ref}>
+          <Calendar date={date} onSelect={onSelect}></Calendar>
+        </Styled.CalendarContaier>
+        <Styled.Backdrop onClick={onBackDropClick}></Styled.Backdrop>
+      </Styled.BackdropContainer>
     </>
   );
 };

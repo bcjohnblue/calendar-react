@@ -11,8 +11,8 @@ const Styled = {
   Calendar: styled.div`
     padding: 20px;
     border: 1px solid black;
-    width: 500px;
-    z-index: 100;
+    width: 400px;
+    max-width: 100vw;
   `
 };
 

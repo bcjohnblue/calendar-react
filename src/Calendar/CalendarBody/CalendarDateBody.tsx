@@ -23,8 +23,8 @@ const Styled = {
     }
   `,
   CalendarCell: styled.div`
-    width: 50px;
-    height: 50px;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
